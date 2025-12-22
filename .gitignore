@@ -1,0 +1,57 @@
+# ---- Build outputs (CMake) ----
+build/
+build-*/
+cmake-build-*/
+out/
+bin/
+lib/
+dist/
+
+# CMake generated
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+install_manifest.txt
+compile_commands.json
+Makefile
+
+# ---- CLion / JetBrains ----
+.idea/
+*.iml
+
+# ---- Windows / MinGW artifacts ----
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.lib
+*.a
+*.obj
+*.o
+*.so
+*.dylib
+
+# ---- Debug/Release folders (common) ----
+Debug/
+Release/
+x64/
+Win32/
+
+# ---- Logs / temp ----
+*.log
+*.tmp
+*.bak
+
+# ---- SQLite runtime files (if you create a DB file) ----
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.sqlite-journal
+*.sqlite3-journal
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
