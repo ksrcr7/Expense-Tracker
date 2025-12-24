@@ -39,7 +39,7 @@ static bool isValidDateYYYYMMDD(const std::string& s){
     return d>=1 && d<=maxd;
 }
 
-expense_tracker::domain::Expense ExpenseService::addExpense(const expense_tracker::domain::Expense &exp) {
+expense_tracker::domain::Expense expense_tracker::app::ExpenseService::addExpense(const expense_tracker::domain::Expense &exp) {
 
     auto title = trim(exp.title);
     auto category = trim(exp.category);
@@ -70,10 +70,10 @@ expense_tracker::domain::Expense ExpenseService::addExpense(const expense_tracke
 
 }
 
-std::vector<expense_tracker::domain::Expense> ExpenseService::getExpenses() const {
+std::vector<expense_tracker::domain::Expense> expense_tracker::app::ExpenseService::getExpenses() const {
     return ExpStorage.getAll();
 }
 
-bool ExpenseService::deleteExpense(int id) {
+bool expense_tracker::app::ExpenseService::deleteExpense(int id) {
     return ExpStorage.removeById(id);
 }
