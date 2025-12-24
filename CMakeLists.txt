@@ -33,6 +33,7 @@ add_executable(Expense_Tracker
         include/expense_tracker/storage/IExpenseStorage.h
         include/expense_tracker/storage/InMemoryExpenseStorage.h
         include/expense_tracker/domain/Expense.h
+        include/expense_tracker/app/ExpenseService.h
 )
 
 target_link_libraries(Expense_Tracker
