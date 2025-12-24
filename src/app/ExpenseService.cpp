@@ -1,7 +1,6 @@
 #include <expense_tracker/app/ExpenseService.h>
 #include <cctype>
 #include <stdexcept>
-#include <algorithm>
 
 std::string trim(const std::string& s){
     const std::string whitespace = " \t\n\r\f\v";
