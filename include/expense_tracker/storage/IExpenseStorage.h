@@ -1,6 +1,3 @@
-#ifndef EXPENSE_TRACKER_IEXPENSESTORAGE_H
-#define EXPENSE_TRACKER_IEXPENSESTORAGE_H
-
 #pragma once
 #include <expense_tracker/domain/Expense.h>
 #include <vector>
@@ -34,4 +31,4 @@ namespace expense_tracker::storage{
 
 
 
-#endif //EXPENSE_TRACKER_IEXPENSESTORAGE_H
+
