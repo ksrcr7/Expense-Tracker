@@ -1,6 +1,7 @@
 #include <expense_tracker/app/ExpenseService.h>
 #include <cctype>
 #include <stdexcept>
+#include <algorithm>
 
 std::string trim(const std::string& s){
     const std::string whitespace = " \t\n\r\f\v";
@@ -67,4 +68,12 @@ expense_tracker::domain::Expense ExpenseService::addExpense(const expense_tracke
 
     return ExpStorage.add(clean);
 
+}
+
+std::vector<expense_tracker::domain::Expense> ExpenseService::getExpenses() const {
+    return ExpStorage.getAll();
+}
+
+bool ExpenseService::deleteExpense(int id) {
+    return ExpStorage.removeById(id);
 }

@@ -1,7 +1,7 @@
 #pragma once
-#include <expense_tracker/storage/InMemoryExpenseStorage.h>
 #include <expense_tracker/storage/IExpenseStorage.h>
 #include <string>
+#include <vector>
 
 class ExpenseService{
 private:
@@ -10,6 +10,7 @@ private:
 public:
     explicit ExpenseService(expense_tracker::storage::IExpenseStorage& storage):ExpStorage(storage){};
     expense_tracker::domain::Expense addExpense(const expense_tracker::domain::Expense& exp);
-
+    [[nodiscard]] std::vector<expense_tracker::domain::Expense> getExpenses()const;
+    bool deleteExpense(int id);
 };
 
