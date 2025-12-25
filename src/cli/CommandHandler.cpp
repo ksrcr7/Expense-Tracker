@@ -13,6 +13,32 @@ static std::string trim(const std::string& s){
     return s.substr(start,end - start + 1);
 }
 
+static std::vector<std::string> tokenize(const std::string& line){
+    std::vector<std::string> token;
+    std::string cur;
+    bool inside = false;
+
+    for(char c : line){
+        if(c == '"'){
+            inside = !inside;
+            continue;
+        }
+        if(!inside && std::isspace(static_cast<unsigned char>(c))){
+            if(!cur.empty()){
+                token.emplace_back(cur);
+                cur.clear();
+            }
+        }
+        else{
+            cur.push_back(c);
+        }
+    }
+
+    if(!cur.empty())token.emplace_back(cur);
+    return token;
+
+}
+
 void expense_tracker::cli::CommandHandler::handle(const std::string &line) {
 
     auto stringHolder = trim(line);
@@ -41,6 +67,8 @@ void expense_tracker::cli::CommandHandler::handle(const std::string &line) {
     else if(stringHolder == "exit"){
         throw std::runtime_error("exit");
     }
+
+
 
     else
         std::cout<<"Unknown Command type 'help'."<<std::endl;
