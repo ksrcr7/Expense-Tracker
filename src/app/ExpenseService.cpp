@@ -76,3 +76,7 @@ std::vector<expense_tracker::domain::Expense> expense_tracker::app::ExpenseServi
 bool expense_tracker::app::ExpenseService::deleteExpense(int id) {
     return ExpStorage.removeById(id);
 }
+
+bool expense_tracker::app::ExpenseService::SearchById(int id) const {
+    return ExpStorage.searchById(id);
+}

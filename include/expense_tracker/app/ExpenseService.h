@@ -14,6 +14,7 @@ namespace expense_tracker::app{
         expense_tracker::domain::Expense addExpense(const expense_tracker::domain::Expense& exp);
         [[nodiscard]] std::vector<expense_tracker::domain::Expense> getExpenses()const;
         bool deleteExpense(int id);
+        bool SearchById(int id)const;
     };
 }
 
