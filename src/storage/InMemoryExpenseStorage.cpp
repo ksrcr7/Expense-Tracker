@@ -28,3 +28,12 @@ bool expense_tracker::storage::InMemoryExpenseStorage::removeById(int id) {
     expenses_.erase(it);
     return true;
 }
+
+bool expense_tracker::storage::InMemoryExpenseStorage::searchById(int id) const {
+
+    auto it = std::find_if(expenses_.begin(),expenses_.end(),
+                           [&](const domain::Expense& exp){return id == exp.id;});
+
+    if(it == expenses_.end())return false;
+    return true;
+}
