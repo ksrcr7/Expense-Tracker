@@ -21,6 +21,10 @@ static void printDeleteUsage(){
     std::cout << R"(Usage: delete --id N)" << std::endl;
 }
 
+static void printSearchUsage(){
+    std::cout<<R"(Usage: search --id N)"<<std::endl;
+}
+
 static std::vector<std::string> tokenize(const std::string& line){
     std::vector<std::string> token;
     std::string cur;
@@ -61,6 +65,7 @@ void expense_tracker::cli::CommandHandler::handle(const std::string &line) {
         std::cout<<"Commands:"<<std::endl
                  <<"  add"<<std::endl
                  <<"  delete"<<std::endl
+                 <<"  search"<<std::endl
                  <<"  help"<<std::endl
                  <<"  list"<<std::endl
                  <<"  exit"<<std::endl;
@@ -189,6 +194,44 @@ void expense_tracker::cli::CommandHandler::handle(const std::string &line) {
         else
             std::cout<<"Not found."<<std::endl;
         return;
+    }
+
+    else if(cmd == "search"){
+        int id = 0;
+        bool hasId = false;
+
+        for(size_t i = 1; i < tokens.size(); ++i){
+            const auto& it = tokens[i];
+
+            if(it == "--id" && (i+1) < tokens.size()){
+                try {
+                    id = std::stoi(tokens[++i]);
+                }
+                catch(...){
+                    std::cout<<"Invalid id."<<std::endl;
+                    printSearchUsage();
+                    return;
+                }
+                hasId = true;
+            }
+            else{
+                printSearchUsage();
+                return;
+            }
+        }
+        if(!hasId){
+            printSearchUsage();
+            return;
+        }
+        bool ok = expenseService.SearchById(id);
+
+        if(ok){
+            std::cout<<"Yes, an Expense with this id exists."<<std::endl;
+        }
+        else
+            std::cout<<"No, there is no Expense with this id."<<std::endl;
+        return;
+
     }
 
 
