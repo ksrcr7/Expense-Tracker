@@ -9,6 +9,7 @@ namespace expense_tracker::storage{
         virtual expense_tracker::domain::Expense add(const expense_tracker::domain::Expense&) = 0;
         [[nodiscard]] virtual std::vector<expense_tracker::domain::Expense> getAll() const = 0;
         virtual bool removeById(int id) = 0;
+        virtual bool searchById(int id)=0;
     };
 }
 
