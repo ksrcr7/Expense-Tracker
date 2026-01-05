@@ -97,6 +97,60 @@ expense_tracker::storage::SQLiteExpenseStorage::~SQLiteExpenseStorage() {
 
 std::vector<expense_tracker::domain::Expense> expense_tracker::storage::SQLiteExpenseStorage::getAll() const {
 
+    const char* sql = "SELECT id, title, category, amount, date "
+                      "FROM expenses "
+                      "ORDER BY id DESC;";
+
+    sqlite3_stmt* stmt = nullptr;
+
+    int rc = sqlite3_prepare_v2(db_,sql,-1,&stmt, nullptr);
+    if(rc != SQLITE_OK){
+        throw std::runtime_error(std::string("prepare failed: ") + sqlite3_errmsg(db_));
+    }
+
+    std::vector<expense_tracker::domain::Expense> result;
+
+    try {
+        while (true){
+            rc = sqlite3_step(stmt);
+
+            if(rc == SQLITE_ROW){
+                expense_tracker::domain::Expense e;
+
+                e.id = sqlite3_column_int(stmt,0);
+
+                const unsigned char* title = sqlite3_column_text(stmt,1);
+                e.title = title ? reinterpret_cast<const char*>(title) : "";
+
+                const unsigned char* category = sqlite3_column_text(stmt,2);
+                e.category = category ? reinterpret_cast<const char*>(category) : "";
+
+                e.amount = sqlite3_column_double(stmt,3);
+
+                const unsigned char* date = sqlite3_column_text(stmt,4);
+                e.date = date ? reinterpret_cast<const char*>(date) : "";
+
+                result.emplace_back(e);
+                continue;
+            }
+            if(rc == SQLITE_DONE){
+                break;
+            }
+            throw std::runtime_error(std::string("step failed: ") + sqlite3_errmsg(db_));
+        }
+        sqlite3_finalize(stmt);
+        return result;
+    }
+
+    catch (...) {
+        sqlite3_finalize(stmt);
+        throw;
+
+    }
+
+
+
+
 }
 
 bool expense_tracker::storage::SQLiteExpenseStorage::removeById(int id) {
