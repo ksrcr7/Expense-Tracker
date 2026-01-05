@@ -1,6 +1,7 @@
 #include <expense_tracker/cli/CommandHandler.h>
 #include <iostream>
 #include <stdexcept>
+#include <iomanip>
 
 static std::string trim(const std::string& s){
     const std::string whitespace = " \t\n\r\f\v";
@@ -77,9 +78,30 @@ void expense_tracker::cli::CommandHandler::handle(const std::string &line) {
             return;
         }
 
-        for(const auto& it : VecExpenses){
-            std::cout<<"["<<it.id<<"] "<<it.title<<" | "<<it.category
-            <<" | "<<it.amount<<" | "<<it.date<<std::endl;
+        std::cout << std::left
+                  << std::setw(6)  << "ID"
+                  << std::setw(22) << "Title"
+                  << std::setw(18) << "Category"
+                  << std::right
+                  << std::setw(12) << "Amount"
+                  << "  "
+                  << std::left
+                  << std::setw(12) << "Date"
+                  << "\n";
+
+        std::cout << std::string(6+22+18+12+2+12, '-') << "\n";
+
+        for (const auto& it : VecExpenses) {
+            std::cout << std::left
+                      << std::setw(6)  << ("[" + std::to_string(it.id) + "]")
+                      << std::setw(22) << it.title
+                      << std::setw(18) << it.category
+                      << std::right
+                      << std::setw(12) << std::fixed << std::setprecision(2) << it.amount
+                      << "  "
+                      << std::left
+                      << std::setw(12) << it.date
+                      << "\n";
         }
 
 
