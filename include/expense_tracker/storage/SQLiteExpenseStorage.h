@@ -19,7 +19,7 @@ namespace expense_tracker::storage{
         expense_tracker::domain::Expense add(const expense_tracker::domain::Expense& exp)override;
         [[nodiscard]] std::vector<expense_tracker::domain::Expense> getAll()const override;
         bool removeById(int id)override;
-        bool searchById(int id)const override;
+        [[nodiscard]] bool searchById(int id)const override;
         ~SQLiteExpenseStorage()override;
 
 
