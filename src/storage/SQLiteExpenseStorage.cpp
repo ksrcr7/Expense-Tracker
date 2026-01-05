@@ -154,6 +154,41 @@ std::vector<expense_tracker::domain::Expense> expense_tracker::storage::SQLiteEx
 }
 
 bool expense_tracker::storage::SQLiteExpenseStorage::removeById(int id) {
+    const char* sql = "DELETE FROM expenses WHERE id = ?;";
+
+    sqlite3_stmt* stmt = nullptr;
+
+    int rc = sqlite3_prepare_v2(db_,sql,-1,&stmt, nullptr);
+    if(rc != SQLITE_OK){
+        throw std::runtime_error(std::string ("prepare failed: " )+ sqlite3_errmsg(db_));
+    }
+
+    try {
+        rc = sqlite3_bind_int(stmt,1,id);
+        if(rc != SQLITE_OK){
+            throw std::runtime_error(std::string("bind id failed: ") + sqlite3_errmsg(db_));
+        }
+
+        rc = sqlite3_step(stmt);
+        if(rc != SQLITE_DONE){
+            throw std::runtime_error(std::string("step failed: ") + sqlite3_errmsg(db_));
+        }
+
+        int changed = sqlite3_changes(db_);
+        sqlite3_finalize(stmt);
+
+        return changed > 0 ;
+
+    }
+    catch (...) {
+        sqlite3_finalize(stmt);
+        throw;
+    }
+
+
+
+
+
 
 }
 
