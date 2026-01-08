@@ -12,6 +12,8 @@ FetchContent_MakeAvailable(googletest)
 add_executable(expense_tracker_tests
 storage/InMemoryExpenseStorageTests.cpp
         app/ExpenseServiceTests.cpp
+        storage/SQLiteExpenseStorageTests.cpp
+        storage/SQLiteExpenseStorageTests.cpp
 )
 
 target_link_libraries(expense_tracker_tests

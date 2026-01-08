@@ -30,6 +30,7 @@ endif()
 # ---------------- App executable ----------------
 add_executable(Expense_Tracker
         src/main.cpp
+        include/expense_tracker/storage/SQLiteExpenseStorage.h
 
 )
 
