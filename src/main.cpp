@@ -1,4 +1,4 @@
-#include <expense_tracker/storage/InMemoryExpenseStorage.h>
+#include <expense_tracker/storage/SQLiteExpenseStorage.h>
 #include <expense_tracker/app/ExpenseService.h>
 #include <expense_tracker/cli/CommandHandler.h>
 
@@ -7,8 +7,8 @@
 #include <stdexcept>
 
 int main() {
-    expense_tracker::storage::InMemoryExpenseStorage InMemoSto;
-    expense_tracker::app::ExpenseService ExpService(InMemoSto);
+    expense_tracker::storage::SQLiteExpenseStorage SQLite("expenses.db");
+    expense_tracker::app::ExpenseService ExpService(SQLite);
     expense_tracker::cli::CommandHandler Command(ExpService);
 
     std::cout<<"Expense Tracker (type 'help')\n";
